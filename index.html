@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nichi Nichi — Home for your in-betweens</title>
+<meta name="description" content="Nichi Nichi is a cosy blue-and-cream café serving coffee, matcha, hojicha and fruit drinks. Open every day, 12 PM to 11 PM.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F6F1E7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1426" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Nichi Nichi">
+<!-- Open Graph: once the site is live, change og:image and og:url to full https:// addresses -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nichi Nichi — Home for your in-betweens">
+<meta property="og:description" content="Coffee, matcha and a quiet corner for the rush and the reset. Open daily, 12 PM – 11 PM.">
+<meta property="og:image" content="images/banner.jpg">
+<meta property="og:image:width" content="1875">
+<meta property="og:image:height" content="625">
+<meta property="og:image:alt" content="Nichi Nichi — Home for your in-betweens.">
+<meta property="og:url" content="">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="preload" as="image" href="images/storefront.jpg" imagesrcset="images/storefront-640.jpg 640w, images/storefront.jpg 1284w" imagesizes="100vw" fetchpriority="high">
+<script>document.documentElement.classList.add('js')</script>
+
+<style>
+/* =========================================================
+   1. PALETTE — pulled from the shop photos
+   ========================================================= */
+:root{
+  --bg:#F6F1E7;          /* warm cream walls */
+  --surface:#FFFDF8;     /* white subway-tile counter */
+  --text:#1B2252;        /* navy menu ink & signage */
+  --muted:#5B6170;       /* blue-grey mosaic tile */
+  --accent:#20296E;      /* Nichi navy — logo & banner background */
+  --accent-soft:#E7D2B4; /* rattan chair weave */
+  --on-accent:#FFFFFF;
+  --wood:#8A5A35;        /* walnut display shelf */
+  --tile:#C3CBD4;        /* mosaic wainscot */
+  --grout:#E8ECEF;
+  --line:rgba(27,42,92,.11);
+  --glass:rgba(255,253,248,.74);
+  --cream:#FAF8EE;       /* logo lettering */
+  --seg-bg:rgba(27,42,92,.07);
+  --seg-ind:#FFFFFF;
+  --shadow:0 1px 2px rgba(27,42,92,.06),0 10px 30px rgba(27,42,92,.08);
+
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+  --ease:cubic-bezier(.25,.1,.25,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,"Segoe UI",Roboto,sans-serif;
+  --nav-h:56px;
+  --gut-l:max(20px,env(safe-area-inset-left));
+  --gut-r:max(20px,env(safe-area-inset-right));
+}
+/* Dark mode = the storefront at night: navy sign glow, cream lettering */
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0E1426; --surface:#18213A; --text:#F3ECDD; --muted:#AEB5C6;
+    --accent:#A9BCFF; --accent-soft:#3D3122; --on-accent:#0E1426;
+    --wood:#B07A4F; --tile:#1B2640; --grout:#26334F;
+    --line:rgba(243,236,221,.12); --glass:rgba(20,28,50,.72);
+    --seg-bg:rgba(243,236,221,.08); --seg-ind:#2B3658;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 32px rgba(0,0,0,.35);
+  }
+}
+
+/* =========================================================
+   2. BASE
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;background:var(--bg)}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:16px;top:0;z-index:100;padding:12px 18px;border-radius:999px;background:var(--accent);
+  color:var(--on-accent);font-weight:600;text-decoration:none;transform:translateY(-120%)}
+.skip:focus{transform:translateY(calc(12px + env(safe-area-inset-top)))}
+.wrap{max-width:1120px;margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+section[id]{scroll-margin-top:calc(var(--nav-h) + env(safe-area-inset-top))}
+
+/* iOS-style press feedback */
+.press{transition:transform .45s var(--spring)}
+.press:active{transform:scale(.97);transition-duration:.12s}
+
+/* Pill buttons */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;
+  border-radius:999px;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap}
+.pill .i{width:19px;height:19px}
+.pill-primary{background:var(--accent);color:var(--on-accent)}
+.pill-tint{background:var(--seg-bg);color:var(--text)}
+
+/* Typography */
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.h2{font-size:clamp(32px,6.5vw,44px);font-weight:800;letter-spacing:-.028em;line-height:1.08}
+.lead{font-size:17px;color:var(--muted);max-width:56ch;margin-top:10px}
+.section{padding:72px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow)}
+
+/* Scroll reveal (only when JS is running) */
+.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* =========================================================
+   3. TOP NAV — translucent, shrinks on scroll
+   ========================================================= */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top)}
+.nav::before{content:"";position:absolute;inset:0;background:var(--glass);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--line);opacity:0;transition:opacity .35s var(--ease)}
+.nav.scrolled::before{opacity:1}
+.nav-in{position:relative;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-size:21px;font-weight:800;letter-spacing:-.03em;text-decoration:none;transform-origin:left center;
+  transition:transform .35s var(--ease);display:flex;align-items:center;min-height:44px}
+.nav.scrolled .brand{transform:scale(.88)}
+.brand img{height:26px;width:auto}
+.nav-links{display:none;list-style:none;gap:4px}
+.nav-links a{display:flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;font-size:15px;font-weight:500;text-decoration:none}
+.nav-links a:hover{background:var(--seg-bg)}
+.nav .pill{min-height:44px;padding:0 16px;font-size:15px}
+
+/* =========================================================
+   4. HERO
+   ========================================================= */
+.hero{position:relative;isolation:isolate;overflow:hidden;color:#fff;
+  margin-top:calc(var(--nav-h) + env(safe-area-inset-top));
+  height:82vh;height:82svh;min-height:540px;max-height:860px}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 42%;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(10,14,28,0) 30%,rgba(10,14,28,.55) 62%,rgba(10,14,28,.88) 100%)}
+.hero .wrap{height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:36px}
+.badge{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:34px;padding:0 14px;border-radius:999px;
+  font-size:14px;font-weight:600;background:rgba(10,14,28,.45);border:1px solid rgba(255,255,255,.22);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%)}
+.dot{width:8px;height:8px;border-radius:50%;background:#C9CED8}
+.badge.open .dot{background:#34C759;box-shadow:0 0 0 4px rgba(52,199,89,.25)}
+.badge.closed .dot{background:#FF6B60}
+.h1{margin-top:18px;line-height:0}
+.h1 img{width:clamp(250px,72vw,520px);height:auto}
+.tagline-img{width:clamp(230px,64vw,430px);height:auto;margin-top:16px}
+.tagline{font-size:clamp(18px,4.4vw,22px);font-weight:500;opacity:.92;margin-top:10px;max-width:30ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.pill-glass{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.34);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%)}
+.hero .pill-primary{background:#F6F1E7;color:#1B2A5C}
+
+/* =========================================================
+   5. ABOUT
+   ========================================================= */
+.about-grid{display:grid;gap:28px}
+.about-text p{font-size:18px;line-height:1.65;margin-top:14px;max-width:52ch}
+.about-text p:first-of-type{margin-top:18px}
+.quote{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:10px 16px;border-radius:999px;
+  background:var(--accent);color:var(--on-accent);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.photos img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--r-md);box-shadow:var(--shadow);background:var(--tile)}
+.photos img:last-child{transform:translateY(28px)}
+
+/* =========================================================
+   6. MENU — segmented control + cross-fading panels
+   ========================================================= */
+.menu-card{padding:18px;margin-top:28px}
+.seg-wrap{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:-2px;padding:2px}
+.seg-wrap::-webkit-scrollbar{display:none}
+.seg{position:relative;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(86px,1fr);
+  padding:3px;border-radius:14px;background:var(--seg-bg);min-width:100%}
+.seg-ind{position:absolute;top:3px;bottom:3px;left:3px;width:calc((100% - 6px) / var(--n,5));border-radius:11px;
+  background:var(--seg-ind);box-shadow:0 1px 2px rgba(0,0,0,.08),0 3px 8px rgba(0,0,0,.08);
+  transform:translateX(calc(100% * var(--i,0)));transition:transform .5s var(--spring)}
+.seg-btn{position:relative;z-index:1;min-height:44px;padding:0 10px;border-radius:11px;font-size:14px;font-weight:600;white-space:nowrap}
+.seg-btn[aria-selected="false"]{color:var(--muted)}
+.panels{display:grid;margin-top:8px}
+.panel{grid-area:1/1;opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility 0s linear .3s}
+.panel.on{opacity:1;visibility:visible;transition:opacity .35s var(--ease) .06s,visibility 0s}
+.rows{list-style:none}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 4px;border-bottom:1px solid var(--line);break-inside:avoid}
+.row-name{font-weight:600;font-size:17px}
+.row-desc{font-size:14px;color:var(--muted);line-height:1.4;margin-top:2px}
+.row-price{font-weight:600;font-size:16px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.note{margin-top:16px;padding:14px 16px;border-radius:16px;background:var(--accent-soft);font-size:14px;line-height:1.5}
+
+/* =========================================================
+   7. GALLERY — horizontal swipe with scroll-snap
+   ========================================================= */
+.scroller{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;padding:4px max(20px,calc((100% - 1080px) / 2)) 20px;
+  scroll-padding-inline:max(20px,calc((100% - 1080px) / 2))}
+.scroller::-webkit-scrollbar{display:none}
+.shot{flex:0 0 min(74vw,330px);scroll-snap-align:start;border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow);background:var(--tile)}
+.shot img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.scroller-wrap{margin-top:24px}
+
+/* =========================================================
+   8. REVIEWS — glass cards over the mosaic wainscot
+   ========================================================= */
+.reviews{position:relative;isolation:isolate}
+.reviews::after{content:"";position:absolute;left:0;right:0;bottom:0;height:52%;z-index:-1;
+  border-top:6px solid var(--wood);background-color:var(--tile);
+  background-image:linear-gradient(var(--grout) 2px,transparent 2px),linear-gradient(90deg,var(--grout) 2px,transparent 2px);
+  background-size:15px 15px}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%)}
+.review-row{padding-bottom:28px}
+.rating-card,.review{flex:0 0 min(82vw,340px);scroll-snap-align:start;padding:22px;display:flex;flex-direction:column}
+.rating-big{font-size:56px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.stars{display:flex;gap:2px;color:#E8A33D;margin-top:8px}
+.stars .i{width:18px;height:18px}
+.stars .on{fill:currentColor}
+.review p{font-size:16px;line-height:1.55;margin-top:12px;flex:1}
+.review-name{font-weight:600;margin-top:14px}
+.muted{color:var(--muted)}
+.rating-card .pill{margin-top:auto;align-self:flex-start}
+.rating-card .muted{margin:8px 0 18px}
+
+/* =========================================================
+   9. VISIT
+   ========================================================= */
+.visit-grid{display:grid;gap:16px;margin-top:28px}
+.map{position:relative;aspect-ratio:4/3;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);
+  background-color:var(--tile);background-image:linear-gradient(var(--grout) 2px,transparent 2px),linear-gradient(90deg,var(--grout) 2px,transparent 2px);
+  background-size:15px 15px;display:grid;place-items:center}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.map-ph{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 24px;text-align:center}
+.info{padding:22px}
+.info-row{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.info-row .i{color:var(--accent);margin-top:2px}
+.info-row a{text-decoration:none;font-weight:600}
+.hours{width:100%;border-collapse:separate;border-spacing:0;margin-top:8px;font-variant-numeric:tabular-nums}
+.hours td{padding:9px 12px}
+.hours td{white-space:nowrap}
+.hours td:last-child{text-align:right}
+.hours tr.today td{background:var(--accent-soft);font-weight:700}
+.hours tr.today td:first-child{border-radius:12px 0 0 12px}
+.hours tr.today td:last-child{border-radius:0 12px 12px 0}
+.info .pill{width:100%;margin-top:18px}
+
+/* =========================================================
+   10. FOOTER
+   ========================================================= */
+.footer{padding:56px 0 40px;text-align:center;border-top:1px solid var(--line)}
+.footer-logo{width:88px;height:88px;border-radius:24px;margin:0 auto 12px;box-shadow:var(--shadow)}
+.banner{margin-top:8px;padding-bottom:72px}
+.banner img{width:100%;height:auto;border-radius:var(--r-lg);box-shadow:var(--shadow)}
+.socials{display:flex;justify-content:center;gap:10px;margin:18px 0}
+.socials a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.contact{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px}
+.contact a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font-weight:500}
+.copy{font-size:14px;color:var(--muted);margin-top:14px}
+
+/* =========================================================
+   11. BOTTOM TAB BAR (mobile)
+   ========================================================= */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(4,1fr);
+  padding:6px max(8px,env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));
+  background:var(--glass);border-top:1px solid var(--line);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%)}
+.tab{min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  font-size:11px;font-weight:600;color:var(--muted);text-decoration:none;border-radius:14px}
+.tab[aria-current="true"]{color:var(--accent)}
+
+/* =========================================================
+   12. BREAKPOINTS
+   ========================================================= */
+@media (min-width:768px){
+  body{padding-bottom:0}
+  .tabbar{display:none}
+  .nav-links{display:flex}
+  .section{padding:96px 0}
+  .about-grid{grid-template-columns:1.1fr 1fr;align-items:center;gap:56px}
+  .menu-card{padding:24px 28px}
+  .rows{columns:2;column-gap:48px}
+  .visit-grid{grid-template-columns:1.25fr 1fr;align-items:start}
+  .map{aspect-ratio:auto;height:100%;min-height:440px}
+}
+@media (min-width:1024px){
+  .hero::after{background:linear-gradient(90deg,rgba(10,14,28,.7) 0%,rgba(10,14,28,.35) 45%,rgba(10,14,28,0) 70%),linear-gradient(180deg,rgba(10,14,28,0) 40%,rgba(10,14,28,.75) 100%)}
+  .hero{margin-left:20px;margin-right:20px;border-radius:32px;max-height:780px}
+}
+
+/* =========================================================
+   13. REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;transition-delay:0s!important}
+  .js .reveal{opacity:1;transform:none}
+  .press:active{transform:none}
+}
+</style>
+</head>
+
+<body>
+<!-- SVG icon sprite (thin-stroke, SF Symbols–like) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3.5 10.5 12 3.5l8.5 7V20a1 1 0 0 1-1 1H15v-6H9v6H4.5a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24"><path d="M4 8.5h13v4.5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6z"/><path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8.5 3v2.5M12.5 3v2.5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.5 4h3l1.5 4-2 1.5a11 11 0 0 0 6.5 6.5l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 3.5 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+  <symbol id="i-nav" viewBox="0 0 24 24"><path d="M3.5 11 20.5 3.5 13 20.5l-2-7.5z"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M7 17 17 7M8.5 7H17v8.5"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M15.5 3.5H13.5a4 4 0 0 0-4 4v3H7v3.5h2.5v6.5h3.5V14h2.5l.6-3.5H13V8a1 1 0 0 1 1-1h1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M14 3.5v11a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3.5a5 5 0 0 0 5 5"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ================= TOP NAV ================= -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand press" href="#home" aria-label="Nichi Nichi, back to top">
+      <picture><source srcset="images/wordmark-cream.png" media="(prefers-color-scheme: dark)"><img src="images/wordmark-navy.png" width="501" height="148" alt=""></picture>
+    </a>
+    <nav aria-label="Main">
+      <ul class="nav-links">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#visit">Visit</a></li>
+      </ul>
+    </nav>
+    <a class="pill pill-primary press js-maps" href="#visit"><svg class="i" aria-hidden="true"><use href="#i-nav"/></svg>Directions</a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ================= 1. HERO ================= -->
+  <section class="hero" id="home" aria-labelledby="cafe-name">
+    <img class="hero-img" src="images/storefront.jpg" srcset="images/storefront-640.jpg 640w, images/storefront.jpg 1284w" sizes="100vw" width="1284" height="1712" fetchpriority="high" decoding="async"
+      alt="Nichi Nichi's storefront at dusk: a glowing navy sign, a blue OPEN light, and a window mural of a reclining figure behind a potted bamboo plant">
+    <div class="wrap">
+      <p class="badge" id="badge" role="status"><span class="dot"></span><span id="badge-text">Open daily · 12 PM – 11 PM</span></p>
+      <h1 class="h1" id="cafe-name"><img src="images/wordmark-cream.png" width="501" height="148" decoding="async" alt="Nichi Nichi"></h1>
+      <p><img class="tagline-img" src="images/tagline-cream.png" width="770" height="153" decoding="async" alt="Home for your in-betweens."></p>
+      <div class="hero-cta">
+        <a class="pill pill-primary press" href="#menu"><svg class="i" aria-hidden="true"><use href="#i-cup"/></svg>View Menu</a>
+        <a class="pill pill-glass press js-maps" href="#visit"><svg class="i" aria-hidden="true"><use href="#i-nav"/></svg>Get Directions</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 2. ABOUT ================= -->
+  <section class="section" id="about" aria-labelledby="about-h">
+    <div class="wrap about-grid">
+      <div class="about-text reveal">
+        <p class="eyebrow">Our story</p>
+        <h2 class="h2" id="about-h">A little blue-and-cream room, day by day.</h2>
+        <p>Nichi Nichi — にちにち, “day by day” — is a small café for the hours between things: the coffee before the next errand, the matcha after a long day, the slow afternoon by the window.</p>
+        <p>Pull up a rattan chair, browse the shelf of manga and toys, and stay a while.</p>
+        <p class="quote">For the rush and reset</p>
+      </div>
+      <div class="photos reveal">
+        <img src="images/counter.jpg" srcset="images/counter-640.jpg 640w, images/counter.jpg 1284w" sizes="(min-width: 768px) 260px, 45vw" width="1284" height="1712" loading="lazy" decoding="async"
+          alt="Sunlit corner by the counter: a rattan chair, a potted plant by the glass door, and the white tiled counter reading 'Home for your in-betweens'">
+        <img src="images/window-seats.jpg" srcset="images/window-seats-640.jpg 640w, images/window-seats.jpg 1284w" sizes="(min-width: 768px) 260px, 45vw" width="1284" height="1712" loading="lazy" decoding="async"
+          alt="Two pine-top tables with rattan chairs facing a big street-side window, blue-grey mosaic tiles below">
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3. MENU ================= -->
+  <section class="section" id="menu" aria-labelledby="menu-h">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">Menu</p>
+        <h2 class="h2" id="menu-h">What we're pouring</h2>
+        <p class="lead">Coffee, matcha, milk drinks and fruit spirits. Prices in Philippine pesos.</p>
+      </div>
+      <div class="card menu-card reveal">
+        <div class="seg-wrap">
+          <div class="seg" id="seg" role="tablist" aria-label="Menu categories"><span class="seg-ind" aria-hidden="true"></span></div>
+        </div>
+        <div class="panels" id="panels"></div>
+        <noscript><p class="note">Turn on JavaScript to see the full menu, or visit us in store.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4. GALLERY ================= -->
+  <section class="section" id="gallery" aria-labelledby="gallery-h" style="padding-bottom:40px">
+    <div class="wrap reveal">
+      <p class="eyebrow">Gallery</p>
+      <h2 class="h2" id="gallery-h">Inside Nichi Nichi</h2>
+    </div>
+    <div class="scroller-wrap reveal">
+      <div class="scroller" tabindex="0" role="region" aria-label="Photo gallery, scroll sideways">
+        <figure class="shot"><img src="images/counter.jpg" srcset="images/counter-640.jpg 640w, images/counter.jpg 1284w" sizes="(min-width: 768px) 330px, 74vw" width="1284" height="1712" loading="lazy" decoding="async" alt="Morning sun through the glass door onto the tiled counter and a rattan chair"></figure>
+        <figure class="shot"><img src="images/shelf.jpg" srcset="images/shelf-640.jpg 640w, images/shelf.jpg 1284w" sizes="(min-width: 768px) 330px, 74vw" width="1284" height="1712" loading="lazy" decoding="async" alt="Wooden display shelf under a blue 'For the rush and reset' sign, filled with Japanese toys, manga and photo-booth strips"></figure>
+        <figure class="shot"><img src="images/window-seats.jpg" srcset="images/window-seats-640.jpg 640w, images/window-seats.jpg 1284w" sizes="(min-width: 768px) 330px, 74vw" width="1284" height="1712" loading="lazy" decoding="async" alt="Window seating with pine tables, rattan chairs and blue-grey mosaic tiles"></figure>
+        <figure class="shot"><img src="images/wall.jpg" width="382" height="510" loading="lazy" decoding="async" alt="A seating nook under retro anime posters and the display shelf, with a laptop on a small table"></figure>
+        <figure class="shot"><img src="images/storefront.jpg" srcset="images/storefront-640.jpg 640w, images/storefront.jpg 1284w" sizes="(min-width: 768px) 330px, 74vw" width="1284" height="1712" loading="lazy" decoding="async" alt="The storefront at night with its navy sign and window mural"></figure>
+        <figure class="shot"><img src="images/menu.jpg" srcset="images/menu-640.jpg 640w, images/menu.jpg 1284w" sizes="(min-width: 768px) 330px, 74vw" width="1284" height="1712" loading="lazy" decoding="async" alt="The printed Nichi Nichi menu in navy ink on white"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand banner -->
+  <div class="wrap banner reveal">
+    <img src="images/banner.jpg" width="1875" height="625" loading="lazy" decoding="async" alt="Hand-lettered banner on Nichi navy: Home for your in-betweens, with the Nichi Nichi wordmark">
+  </div>
+
+  <!-- ================= 5. REVIEWS ================= -->
+  <section class="section reviews" id="reviews" aria-labelledby="reviews-h">
+    <div class="wrap reveal">
+      <p class="eyebrow">Reviews</p>
+      <h2 class="h2" id="reviews-h">Kind words from guests</h2>
+    </div>
+    <div class="scroller review-row reveal" id="review-row" tabindex="0" role="region" aria-label="Guest reviews, scroll sideways" style="margin-top:24px"></div>
+  </section>
+
+  <!-- ================= 6. VISIT ================= -->
+  <section class="section" id="visit" aria-labelledby="visit-h">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">Visit us</p>
+        <h2 class="h2" id="visit-h">Come say hi</h2>
+      </div>
+      <div class="visit-grid">
+        <div class="map reveal" id="map">
+          <div class="map-ph card">
+            <svg class="i" aria-hidden="true" style="width:30px;height:30px;color:var(--accent)"><use href="#i-pin"/></svg>
+            <p style="font-weight:600">Nichi Nichi</p>
+            <p class="muted" id="map-ph-text" style="font-size:14px">Map loads as you scroll here</p>
+          </div>
+        </div>
+        <div class="card info reveal">
+          <div class="info-row"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg><div><p class="muted" style="font-size:13px">Address</p><p id="addr" style="font-weight:600"></p></div></div>
+          <div class="info-row" style="border:0;padding-bottom:0"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><p class="muted" style="font-size:13px">Opening hours</p></div>
+          <table class="hours" aria-label="Opening hours"><tbody id="hours"></tbody></table>
+          <a class="pill pill-primary press js-maps" href="#visit"><svg class="i" aria-hidden="true"><use href="#i-nav"/></svg>Open in Maps</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= 7. FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap">
+    <img class="footer-logo" src="images/logo.png" width="512" height="512" loading="lazy" decoding="async" alt="Nichi Nichi logo">
+    <p class="muted">Home for your in-betweens.</p>
+    <div class="socials" id="socials"></div>
+    <div class="contact" id="contact"></div>
+    <p class="copy">© <span id="year">2026</span> Nichi Nichi. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ================= MOBILE TAB BAR ================= -->
+<nav class="tabbar" aria-label="Sections">
+  <a class="tab press" href="#home" data-s="home" aria-current="true"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg>Home</a>
+  <a class="tab press" href="#menu" data-s="menu"><svg class="i" aria-hidden="true"><use href="#i-cup"/></svg>Menu</a>
+  <a class="tab press" href="#reviews" data-s="reviews"><svg class="i" aria-hidden="true"><use href="#i-star"/></svg>Reviews</a>
+  <a class="tab press" href="#visit" data-s="visit"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Visit</a>
+</nav>
+
+<script>
+/* =========================================================
+   CONFIG — edit everything here. No need to touch the layout.
+   ========================================================= */
+const CONFIG = {
+  name: "Nichi Nichi",
+  description: "A cosy blue-and-cream café for coffee, matcha and fruit drinks.",
+  address: {
+    full: "",               // e.g. "123 Sample St., Barangay X, Quezon City, Metro Manila"
+    street: "", city: "", region: "Metro Manila", postal: "", country: "PH"
+  },
+  geo: { lat: null, lng: null },   // e.g. { lat: 14.6, lng: 121.0 }
+  mapEmbed: "",              // Google Maps > Share > Embed a map > copy the src="..." URL
+  phone: "",                 // e.g. "+63 917 000 0000"
+  email: "",
+  socials: {                 // leave "" to hide an icon
+    instagram: "https://www.instagram.com/sipnichi/",
+    facebook: "https://www.facebook.com/profile.php?id=61579303052638",
+    tiktok: "https://www.tiktok.com/@sipnichi",
+    other: ""
+  },
+  // Opening hours in Manila time. Index 0 = Sunday. Use null for a closed day.
+  // A close time earlier than the open time means "past midnight".
+  timezone: "Asia/Manila",
+  hours: [["12:00","23:00"],["12:00","23:00"],["12:00","23:00"],["12:00","23:00"],["12:00","23:00"],["12:00","23:00"],["12:00","23:00"]],
+  // Google rating — fill in from your Google Business profile
+  rating: { value: null, count: null, url: "" },   // e.g. { value: 4.8, count: 320, url: "https://g.page/r/..." }
+  // Real Google reviews only, copied with permission. Example:
+  // { text: "Best sea salt latte in the area.", name: "Ana R.", stars: 5 }
+  reviews: [],
+  menu: [
+    { category: "Coffee", items: [
+      { name: "Americano", price: 115, desc: "Espresso lengthened with water." },
+      { name: "Cafe Latte", price: 125, desc: "Espresso and steamed milk." },
+      { name: "Spanish Latte", price: 125, desc: "Latte sweetened with condensed milk." },
+      { name: "Nichicano", price: 135, desc: "Our house signature." },
+      { name: "Vanilla Latte", price: 145, desc: "Latte with vanilla." },
+      { name: "Toffee Nut Latte", price: 145, desc: "Latte with toffee nut." },
+      { name: "Salted Caramel Latte", price: 155, desc: "Latte with salted caramel." },
+      { name: "Hazelnut Latte", price: 155, desc: "Latte with hazelnut." },
+      { name: "Dark Mocha", price: 155, desc: "Espresso, dark chocolate and milk." },
+      { name: "White Chocolate Mocha", price: 155, desc: "Espresso, white chocolate and milk." },
+      { name: "Sea Salt Latte", price: 155, desc: "Latte with sea salt cream." },
+      { name: "Caramel Macchiato", price: 155, desc: "Milk, espresso and caramel." },
+      { name: "Biscoff Latte", price: 175, desc: "Latte with Biscoff." }
+    ]},
+    { category: "Non-Coffee", items: [
+      { name: "Strawberry Milk", price: 125, desc: "Milk with strawberry." },
+      { name: "Blueberry Milk", price: 125, desc: "Milk with blueberry." },
+      { name: "Chocolate Milk", price: 125, desc: "Milk with chocolate." },
+      { name: "Ube Milk", price: 125, desc: "Milk with ube." }
+    ]},
+    { category: "Spirits", items: [
+      { name: "Strawberry", price: 85, desc: "" },
+      { name: "Green Apple", price: 85, desc: "" },
+      { name: "Lychee", price: 85, desc: "" },
+      { name: "Passionfruit", price: 85, desc: "" },
+      { name: "Cherry Lime", price: 95, desc: "" },
+      { name: "Cherry Lime & Raspberry", price: 95, desc: "" }
+    ]},
+    { category: "Matcha", note: "Choose your matcha strength: Level 1 (default) free · Level 2 intense +₱50 · Level 3 extreme +₱90", items: [
+      { name: "Matcha Latte", price: 195, desc: "Matcha and milk." },
+      { name: "Earl Grey Matcha", price: 205, desc: "Matcha latte with Earl Grey." },
+      { name: "Sea Salt Matcha", price: 205, desc: "Matcha latte with sea salt cream." },
+      { name: "Ube Matcha", price: 205, desc: "Matcha latte with ube." },
+      { name: "Matcha Ichigo", price: 215, desc: "Matcha latte with strawberry." },
+      { name: "Hojicha", price: 175, desc: "Roasted green tea latte." }
+    ]},
+    { category: "Extras", items: [
+      { name: "Espresso", price: 30, desc: "Extra shot." },
+      { name: "Sauce", price: 35, desc: "" },
+      { name: "Syrup", price: 45, desc: "" },
+      { name: "Jam", price: 30, desc: "" },
+      { name: "Sub Oat", price: 50, desc: "Swap to oat milk." },
+      { name: "Blue Agave", price: 50, desc: "" },
+      { name: "Sea Salt Cream", price: 50, desc: "" }
+    ]}
+  ]
+};
+
+/* =========================================================
+   APP — rendering & interactions (no libraries)
+   ========================================================= */
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const C = CONFIG;
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+  const icon = id => `<svg class="i" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+  const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const toMin = t => { const [h, m] = t.split(":"); return h * 60 + +m; };
+  const fmt = t => { let [h, m] = t.split(":").map(Number); const ap = h >= 12 && h < 24 ? "PM" : "AM"; h = h % 12 || 12; return h + (m ? ":" + String(m).padStart(2, "0") : "") + " " + ap; };
+
+  /* ---------- Menu: segmented control + panels ---------- */
+  const seg = $("#seg"), panels = $("#panels");
+  seg.style.setProperty("--n", C.menu.length);
+  C.menu.forEach((cat, i) => {
+    const b = document.createElement("button");
+    Object.assign(b, { type: "button", id: "tab-" + i, className: "seg-btn press", textContent: cat.category, tabIndex: i ? -1 : 0 });
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", !i);
+    b.setAttribute("aria-controls", "panel-" + i);
+    seg.append(b);
+    const p = document.createElement("div");
+    p.className = "panel" + (i ? "" : " on");
+    p.id = "panel-" + i;
+    p.setAttribute("role", "tabpanel");
+    p.setAttribute("aria-labelledby", "tab-" + i);
+    p.innerHTML = '<ul class="rows">' + cat.items.map(it =>
+      `<li class="row"><div><p class="row-name">${esc(it.name)}</p>${it.desc ? `<p class="row-desc">${esc(it.desc)}</p>` : ""}</div><span class="row-price">₱${it.price}</span></li>`
+    ).join("") + "</ul>" + (cat.note ? `<p class="note">${esc(cat.note)}</p>` : "");
+    panels.append(p);
+  });
+  const tabs = [...seg.querySelectorAll(".seg-btn")];
+  const select = (i, focus) => {
+    tabs.forEach((t, j) => { t.setAttribute("aria-selected", i === j); t.tabIndex = i === j ? 0 : -1; panels.children[j].classList.toggle("on", i === j); });
+    seg.style.setProperty("--i", i);
+    if (focus) tabs[i].focus();
+    tabs[i].scrollIntoView({ block: "nearest", inline: "nearest" });
+  };
+  seg.addEventListener("click", e => { const i = tabs.indexOf(e.target.closest(".seg-btn")); if (i > -1) select(i); });
+  seg.addEventListener("keydown", e => {
+    const cur = tabs.indexOf(document.activeElement), n = tabs.length;
+    const k = { ArrowRight: 1, ArrowLeft: -1, Home: -cur, End: n - 1 - cur }[e.key];
+    if (k !== undefined && cur > -1) { e.preventDefault(); select((cur + k + n) % n, true); }
+  });
+
+  /* ---------- Live open / closed (always in Manila time) ---------- */
+  const now = () => {
+    const p = new Intl.DateTimeFormat("en-US", { timeZone: C.timezone, weekday: "long", hour: "numeric", minute: "numeric", hourCycle: "h23" }).formatToParts(new Date());
+    const g = t => p.find(x => x.type === t).value;
+    return { day: DAYS.indexOf(g("weekday")), mins: (+g("hour") % 24) * 60 + +g("minute") };
+  };
+  const status = () => {
+    const { day, mins } = now(), H = C.hours, t = H[day], y = H[(day + 6) % 7];
+    if (y && toMin(y[1]) <= toMin(y[0]) && mins < toMin(y[1])) return { open: true, until: y[1] };
+    if (t) {
+      const o = toMin(t[0]), c = toMin(t[1]);
+      if (mins >= o && (c <= o || mins < c)) return { open: true, until: t[1] };
+      if (mins < o) return { open: false, next: t[0], when: "" };
+    }
+    for (let i = 1; i <= 7; i++) { const d = H[(day + i) % 7]; if (d) return { open: false, next: d[0], when: i === 1 ? " tomorrow" : " " + DAYS[(day + i) % 7] }; }
+    return { open: false };
+  };
+  const badge = $("#badge"), badgeText = $("#badge-text");
+  const paintBadge = () => {
+    const s = status();
+    badge.className = "badge " + (s.open ? "open" : "closed");
+    badgeText.textContent = s.open ? `Open now · until ${fmt(s.until)}` : s.next ? `Closed · opens ${fmt(s.next)}${s.when}` : "Closed";
+  };
+  paintBadge();
+  setInterval(paintBadge, 60000);
+
+  /* ---------- Hours table (Monday first, today highlighted) ---------- */
+  const today = now().day;
+  $("#hours").innerHTML = [1, 2, 3, 4, 5, 6, 0].map(d => {
+    const h = C.hours[d];
+    return `<tr${d === today ? ' class="today" aria-current="date"' : ""}><td>${DAYS[d]}${d === today ? " · Today" : ""}</td><td>${h ? fmt(h[0]) + " – " + fmt(h[1]) : "Closed"}</td></tr>`;
+  }).join("");
+
+  /* ---------- Address + "Open in Maps" (Apple on iOS, Google elsewhere) ---------- */
+  $("#addr").textContent = C.address.full || "Address coming soon";
+  const q = encodeURIComponent([C.name, C.address.full].filter(Boolean).join(", "));
+  const iOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const ll = C.geo.lat ? `${C.geo.lat},${C.geo.lng}` : "";
+  const mapsUrl = iOS ? `https://maps.apple.com/?q=${q}${ll ? "&ll=" + ll : ""}` : `https://www.google.com/maps/search/?api=1&query=${ll || q}`;
+  document.querySelectorAll(".js-maps").forEach(a => { a.href = mapsUrl; a.target = "_blank"; a.rel = "noopener"; });
+
+  /* ---------- Map: inject iframe only when Visit is near the viewport ---------- */
+  const map = $("#map");
+  if (!C.mapEmbed) $("#map-ph-text").textContent = "Tap “Open in Maps” for directions";
+  else new IntersectionObserver((en, o) => {
+    if (!en[0].isIntersecting) return;
+    o.disconnect();
+    const f = document.createElement("iframe");
+    Object.assign(f, { src: C.mapEmbed, title: "Map showing Nichi Nichi's location", loading: "lazy", referrerPolicy: "no-referrer-when-downgrade" });
+    f.setAttribute("allowfullscreen", "");
+    map.append(f);
+  }, { rootMargin: "600px 0px" }).observe(map);
+
+  /* ---------- Reviews ---------- */
+  const stars = n => `<div class="stars" aria-label="${n} out of 5 stars">${[1, 2, 3, 4, 5].map(i => `<svg class="i${i <= Math.round(n) ? " on" : ""}" aria-hidden="true"><use href="#i-star"/></svg>`).join("")}</div>`;
+  const R = C.rating, gLink = R.url || `https://www.google.com/maps/search/?api=1&query=${q}`;
+  $("#review-row").innerHTML =
+    `<article class="glass rating-card">${R.value
+      ? `<p class="rating-big">${R.value}</p>${stars(R.value)}<p class="muted">from ${R.count} Google reviews</p>`
+      : `<p style="font-size:22px;font-weight:700;line-height:1.25">Been to Nichi Nichi?</p><p class="muted">We'd love to hear how your visit went.</p>`}
+      <a class="pill pill-primary press" href="${esc(gLink)}" target="_blank" rel="noopener">${R.value ? "See all on Google" : "Review us on Google"}${icon("out")}</a></article>` +
+    C.reviews.map(r => `<article class="glass review">${stars(r.stars)}<p>“${esc(r.text)}”</p><p class="review-name">${esc(r.name)}</p></article>`).join("");
+
+  /* ---------- Footer: socials + contact ---------- */
+  const S = C.socials, labels = { instagram: ["ig", "Instagram"], facebook: ["fb", "Facebook"], tiktok: ["tt", "TikTok"], other: ["link", "Website"] };
+  $("#socials").innerHTML = Object.keys(labels).filter(k => S[k]).map(k =>
+    `<a class="press" href="${esc(S[k])}" target="_blank" rel="noopener" aria-label="Nichi Nichi on ${labels[k][1]}">${icon(labels[k][0])}</a>`).join("");
+  $("#contact").innerHTML =
+    (C.phone ? `<a href="tel:${esc(C.phone.replace(/\s/g, ""))}">${icon("phone")}&nbsp;${esc(C.phone)}</a>` : "") +
+    (C.email ? `<a href="mailto:${esc(C.email)}">${icon("mail")}&nbsp;${esc(C.email)}</a>` : "");
+  $("#year").textContent = new Date().getFullYear();
+
+  /* ---------- JSON-LD (CafeOrCoffeeShop) built from CONFIG ---------- */
+  const base = location.href.split("#")[0], abs = p => new URL(p, base).href;
+  const ld = {
+    "@context": "https://schema.org", "@type": "CafeOrCoffeeShop",
+    name: C.name, description: C.description, url: base,
+    image: ["images/storefront.jpg", "images/counter.jpg", "images/window-seats.jpg"].map(abs),
+    servesCuisine: ["Coffee", "Matcha"], priceRange: "₱₱",
+    menu: base + "#menu", hasMenu: base + "#menu",
+    address: { "@type": "PostalAddress", streetAddress: C.address.street, addressLocality: C.address.city, addressRegion: C.address.region, postalCode: C.address.postal, addressCountry: C.address.country },
+    openingHoursSpecification: C.hours.map((h, d) => h && { "@type": "OpeningHoursSpecification", dayOfWeek: DAYS[d], opens: h[0], closes: h[1] }).filter(Boolean),
+    logo: abs("images/logo.png"),
+    sameAs: Object.values(S).filter(Boolean)
+  };
+  if (C.phone) ld.telephone = C.phone;
+  if (C.email) ld.email = C.email;
+  if (C.geo.lat) ld.geo = { "@type": "GeoCoordinates", latitude: C.geo.lat, longitude: C.geo.lng };
+  if (R.value) ld.aggregateRating = { "@type": "AggregateRating", ratingValue: R.value, reviewCount: R.count, bestRating: 5 };
+  const s = document.createElement("script");
+  s.type = "application/ld+json";
+  s.textContent = JSON.stringify(ld);
+  document.head.append(s);
+
+  /* ---------- Nav shrink on scroll (rAF-throttled) ---------- */
+  const nav = $("#nav");
+  let ticking = false;
+  const onScroll = () => { nav.classList.toggle("scrolled", scrollY > 8); ticking = false; };
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
+
+  /* ---------- Reveal sections once ---------- */
+  const rv = new IntersectionObserver(en => en.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); rv.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll(".reveal").forEach(el => rv.observe(el));
+
+  /* ---------- Tab bar: highlight the section in view ---------- */
+  const tabLinks = document.querySelectorAll(".tab");
+  const spy = new IntersectionObserver(en => en.forEach(e => {
+    if (e.isIntersecting) tabLinks.forEach(t => t.setAttribute("aria-current", t.dataset.s === e.target.id));
+  }), { rootMargin: "-45% 0px -50% 0px" });
+  ["home", "menu", "reviews", "visit"].forEach(id => spy.observe(document.getElementById(id)));
+})();
+</script>
+</body>
+</html>
